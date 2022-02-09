@@ -1,5 +1,5 @@
 import logging
-from typing import Final, Optional
+from typing import Final, Optional, Union
 from src.todo.models import TodoItem
 import itertools
 
@@ -10,7 +10,7 @@ class TodoStore:
     id_iter = itertools.count()
     rows: dict[int, TodoItem] = {}
 
-    def fetch(self, id: int = None) -> list[TodoItem] | Optional[TodoItem]:
+    def fetch(self, id: int = None) -> Union[list[TodoItem], Optional[TodoItem]]:
         if id:
             return self.rows.get(id)
         else:
