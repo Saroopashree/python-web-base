@@ -9,8 +9,15 @@
 1. Install all python dependencies `pip install -r requirements.txt`
 1. Run the app using uvicorn `python3 -m uvicorn src.main:app --host 127.0.0.1 --port 8000`
 1. In the browser go to `127.0.0.1:8000/docs` to view the Swagger docs
- 
+
 ### How to run via Docker
+#### Using docker-compose
+> This is the recommended method as creating the image and running the container are very easy and straigtforward
+
+1. Perform `docker-compose up`. And go to `127.0.0.1:8000/docs` to view the Swagger docs.
+1. If the container is not required anymore do `docker-compose down` to bring down the container.
+
+#### Not using docker-compose
 1. Start the docker daemon
 1. Perform `docker build --rm --pull -f "./Dockerfile" -t "pythonwebbase:latest"`. This step should build a docker image. Verify it by doing `docker images`
 1. Now run the docker image by performing `docker run pythonwebbase`
