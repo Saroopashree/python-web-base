@@ -1,26 +1,26 @@
 import logging
+
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
+from starlette.middleware import Middleware
+
 from src.todo.router import router as todo_router
-
-
-app = FastAPI()
 
 LOG = logging.getLogger(__name__)
 
-
-@app.on_event("startup")
-async def startup():
-    LOG.debug("App starting...")
-
-
-@app.on_event("shutdown")
-async def shutdown():
-    LOG.debug("App shutting down...")
-
-
-app.add_middleware(
-    CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]
+app = FastAPI(
+    title="Todo Backend",
+    middleware=[
+        Middleware(
+            CORSMiddleware,
+            allow_origins=["*"],
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
+    ],
+    on_startup=[lambda: LOG.debug("App starting up...")],
+    on_shutdown=[lambda: LOG.debug("App shutting down...")],
 )
+
 
 app.include_router(todo_router)
