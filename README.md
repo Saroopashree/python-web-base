@@ -12,7 +12,7 @@
 
 ### How to run via Docker
 #### Using docker-compose
-> This is the recommended method as creating the image and running the container are very easy and straigtforward
+> This is the recommended method as creating the image and running the container are very easy and straight-forward
 
 1. Perform `docker-compose up`. And go to `127.0.0.1:8000/docs` to view the Swagger docs.
 1. If the container is not required anymore do `docker-compose down` to bring down the container.
