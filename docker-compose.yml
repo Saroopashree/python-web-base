@@ -3,8 +3,32 @@ version: '3.4'
 services:
   pythonwebbase:
     image: pythonwebbase
+    networks:
+      - py-app-network
     build:
       context: .
       dockerfile: ./Dockerfile
     ports:
       - 8000:8000
+
+  mysql:
+    image: mysql:latest
+    restart: always
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - py-app-network
+    environment:
+      - MYSQL_DATABASE="dev"
+      - MYSQL_USER="admin"
+      - MYSQL_ROOT_PASSWORD=""
+      - MYSQL_PASSWORD="<PROVIDER_PASSOWORD_HERE>"
+    ports:
+      - 3306:3306
+
+volumes:
+  db-data:  
+
+networks:
+  py-app-network:
+    driver: bridge
