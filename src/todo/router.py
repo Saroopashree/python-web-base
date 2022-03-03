@@ -5,8 +5,9 @@ from pydantic import BaseModel
 
 from src.todo.models import TodoItem
 from src.todo.store import TodoStore
+from src.db.utils import get_db
 
-store = TodoStore()
+store = TodoStore(get_db())
 
 router = APIRouter(prefix="/todo")
 
