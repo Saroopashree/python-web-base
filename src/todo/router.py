@@ -1,6 +1,8 @@
 from typing import Optional
+
 from fastapi import APIRouter
 from pydantic import BaseModel
+
 from src.todo.models import TodoItem
 from src.todo.store import TodoStore
 

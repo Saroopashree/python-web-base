@@ -1,10 +1,14 @@
 version: '3.4'
 
 services:
-  pythonwebbase:
+  app:
     image: pythonwebbase
     networks:
       - py-app-network
+    environment:
+      - MYSQL_DATABASE=dev
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -19,10 +23,10 @@ services:
     networks:
       - py-app-network
     environment:
-      - MYSQL_DATABASE="dev"
-      - MYSQL_USER="admin"
-      - MYSQL_ROOT_PASSWORD=""
-      - MYSQL_PASSWORD="<PROVIDER_PASSOWORD_HERE>"
+      - MYSQL_DATABASE=dev
+      - MYSQL_USER=admin
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_PASSWORD=
     ports:
       - 3306:3306
 

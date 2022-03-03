@@ -1,8 +1,8 @@
 import logging
 
 from fastapi import FastAPI
-from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware import Middleware
+from starlette.middleware.cors import CORSMiddleware
 
 from src.todo.router import router as todo_router
 
