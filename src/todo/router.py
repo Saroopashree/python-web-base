@@ -3,17 +3,19 @@ from typing import Optional
 from fastapi import APIRouter
 from pydantic import BaseModel
 
+from src.containers import ApplicationContainer
 from src.todo.models import TodoItem
-from src.todo.store import TodoStore
-from src.db.utils import get_db
 
-store = TodoStore(get_db())
+app_container = ApplicationContainer()
+
+store = app_container.todo_store()
+
+
+class DescPayload(BaseModel):
+    desc: str
+
 
 router = APIRouter(prefix="/todo")
-
-
-class ChangeDescPayload(BaseModel):
-    desc: str
 
 
 @router.get("/", response_model=list[TodoItem])
@@ -27,8 +29,8 @@ async def fetch_todo_by_id(tid: int) -> Optional[TodoItem]:
 
 
 @router.post("/", response_model=TodoItem)
-async def add_todo(payload: TodoItem) -> TodoItem:
-    return store.add(payload)
+async def add_todo(payload: DescPayload) -> TodoItem:
+    return store.add(payload.desc)
 
 
 @router.put("/toggle-complete/{tid}", response_model=TodoItem)
@@ -37,7 +39,7 @@ async def toggle_completed(tid: int) -> TodoItem:
 
 
 @router.put("/change-desc/{tid}", response_model=TodoItem)
-async def change_description(tid: int, payload: ChangeDescPayload) -> TodoItem:
+async def change_description(tid: int, payload: DescPayload) -> TodoItem:
     return store.change_desc(tid, payload.desc)
 
 

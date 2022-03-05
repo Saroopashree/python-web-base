@@ -1,32 +1,40 @@
 import os
-from typing import Generator
 
 import pymysql
 from pymysql import Connection
 from pymysql.cursors import DictCursor
 
 
-# Dependency
-def get_db() -> Generator[Connection, None, None]:
-    database = os.getenv("MYSQL_DATABASE")
-    username = os.getenv("MYSQL_USER")
-    password = os.getenv("MYSQL_PASSWORD")
-    localhost = "127.0.0.1"
-    conn = pymysql.connect(
-        host=localhost,
-        user=username,
-        password=password,
-        database=database,
-        cursorclass=DictCursor,
-        init_command="""
-    CREATE TABLE IF NOT EXISTS `db_migration` (
-        `version` VARCHAR(16) NOT NULL,
-        `name` VARCHAR(256) NOT NULL,
-        PRIMARY KEY (`version`)
-    );""",
-    )
+class SqlConnProvider:
+    def __init__(self) -> None:
+        self._cached_conn: Connection = None
+        self.create_conn()
 
-    try:
-        yield conn
-    finally:
-        conn.close()
+    def create_conn(self) -> Connection:
+        self.close_conn()
+
+        database = os.getenv("MYSQL_DATABASE")
+        username = os.getenv("MYSQL_USER")
+        password = os.getenv("MYSQL_PASSWORD")
+        host = "mysqldb"
+
+        print("[SQL_CONN_PROVIDER]: Creating new MySQL connection...")
+
+        self._cached_conn = pymysql.connect(
+            host=host,
+            port=3306,
+            user=username,
+            password=password,
+            database=database,
+            cursorclass=DictCursor,
+        )
+        return self._cached_conn
+
+    def get_conn(self):
+        return self._cached_conn or self.create_conn()
+
+    def close_conn(self):
+        if self._cached_conn:
+            print("[SQL_CONN_PROVIDER]: Closing existing MySQL connection...")
+            self._cached_conn.close()
+            self._cached_conn = None
