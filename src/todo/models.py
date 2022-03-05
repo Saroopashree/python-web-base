@@ -4,6 +4,6 @@ from pydantic import BaseModel
 
 
 class TodoItem(BaseModel):
-    id: Optional[int]
+    id: int
     desc: str
     is_completed: bool = False

@@ -1,5 +1,5 @@
 import itertools
-from typing import Final, Optional, Union
+from typing import Optional, Union
 
 from pymysql import Connection
 from pymysql.cursors import Cursor
@@ -9,9 +9,6 @@ from src.todo.models import TodoItem
 
 
 class TodoStore:
-    id_iter = itertools.count()
-    rows: dict[int, TodoItem] = {}
-
     TABLE = "todos"
 
     def __init__(self, sql_conn: Connection) -> None:

@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 
 import pymysql
 from pymysql import Connection
@@ -7,7 +8,7 @@ from pymysql.cursors import DictCursor
 
 class SqlConnProvider:
     def __init__(self) -> None:
-        self._cached_conn: Connection = None
+        self._cached_conn: Optional[Connection] = None
         self.create_conn()
 
     def create_conn(self) -> Connection:
@@ -30,10 +31,10 @@ class SqlConnProvider:
         )
         return self._cached_conn
 
-    def get_conn(self):
+    def get_conn(self) -> Connection:
         return self._cached_conn or self.create_conn()
 
-    def close_conn(self):
+    def close_conn(self) -> None:
         if self._cached_conn:
             print("[SQL_CONN_PROVIDER]: Closing existing MySQL connection...")
             self._cached_conn.close()

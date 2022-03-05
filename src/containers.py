@@ -3,7 +3,7 @@ from dependency_injector.providers import Provider, Singleton
 from pymysql import Connection
 
 from src.db.db_migration import DBMigrationOrchestrator
-from src.db.utils import SqlConnProvider
+from src.db.sql import SqlConnProvider
 from src.todo.store import TodoStore
 
 
