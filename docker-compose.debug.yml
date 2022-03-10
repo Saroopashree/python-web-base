@@ -1,12 +1,50 @@
-version: '3.4'
+version: '3.8'
 
 services:
-  pythonwebbase:
+  app:
     image: pythonwebbase
+    container_name: app
+    networks:
+      - app-network
+    environment:
+      - MYSQL_DATABASE=dev
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=<provide-password-here>
     build:
       context: .
       dockerfile: ./Dockerfile
     command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 -m uvicorn src.main:app --host 0.0.0.0 --port 8000"]
+    depends_on:
+      mysqldb:
+        condition: service_healthy
     ports:
       - 8000:8000
-      - 5678:5678
+  mysqldb:
+    image: mysql:latest
+    platform: linux/x86_64
+    restart: always
+    container_name: mysqldb
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-network
+    environment:
+      - MYSQL_DATABASE=dev
+      - MYSQL_USER=admin
+      - MYSQL_ROOT_PASSWORD=<provider-root-password-here>
+      - MYSQL_PASSWORD=<provider-password-here>
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: "mysqladmin -u root -p$$MYSQL_ROOT_PASSWORD ping --protocol=tcp"
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
+volumes:
+  db-data:  
+
+networks:
+  app-network:
+    driver: bridge
