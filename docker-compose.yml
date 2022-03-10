@@ -6,8 +6,8 @@ x-common-env-vars: &common-env-vars
   MYSQL_PASSWORD: <provide-password-here>
 
 services:
-  app:
-    image: pythonwebbase
+  server:
+    image: saroopa/server
     networks:
       - app-network
     environment:
