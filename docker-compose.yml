@@ -1,16 +1,19 @@
 version: '3.8'
 
+x-common-env-vars: &common-env-vars
+  MYSQL_DATABASE: dev
+  MYSQL_USER: admin
+  MYSQL_PASSWORD: <provide-password-here>
+
 services:
   app:
     image: pythonwebbase
     networks:
       - app-network
     environment:
-      - MYSQL_DATABASE=dev
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=<provide-password-here>
+      <<: *common-env-vars
     build:
-      context: .
+      context: ./server
       dockerfile: ./Dockerfile
     depends_on:
       mysqldb:
@@ -26,10 +29,8 @@ services:
     networks:
       - app-network
     environment:
-      - MYSQL_DATABASE=dev
-      - MYSQL_USER=admin
-      - MYSQL_ROOT_PASSWORD=<provide-root-password-here>
-      - MYSQL_PASSWORD=<provide-password-here>
+      <<: *common-env-vars
+      MYSQL_ROOT_PASSWORD: <provide-root-password-here>
     ports:
       - 3306:3306
     healthcheck:
