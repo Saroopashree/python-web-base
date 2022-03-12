@@ -6,6 +6,17 @@ x-common-env-vars: &common-env-vars
   MYSQL_PASSWORD: <provide-password-here>
 
 services:
+  app:
+    image: saroopa/client
+    networks:
+      - app-network
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    depends_on:
+      - server
+    ports:
+      - 3000:3000
   server:
     image: saroopa/server
     networks:
