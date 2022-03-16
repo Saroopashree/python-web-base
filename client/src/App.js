@@ -7,11 +7,14 @@ import { Button, Form, ListGroup } from "react-bootstrap";
 
 function App() {
   const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState("second");
+  const [newTodo, setNewTodo] = useState("");
 
   const fetchAllTodos = () => {
+    debugger
     axios.get("server:8000/todo/").then((response) => {
       setTodos(response.data);
+    }).catch((err) => {
+      console.log(err)
     });
   };
 
@@ -54,20 +57,22 @@ function App() {
   return (
     <div id="app-start">
       <h2 id="app-header">Todo App</h2>
-      <ListGroup>
-        {todos.map((todo) => (
-          <Todo
-            todo={todo}
-            handleTodoEdit={handleTodoEdit}
-            handleTodoToggle={handleTodoToggle}
-            handleTodoDelete={handleTodoDelete}
-          />
-        ))}
-      </ListGroup>
-      <Form.Group onSubmit={handleAddNewTodo}>
-        <Form.Control plaintext value={newTodo} onChange={setNewTodo} />
-        <Button variant="success">Add Todo #{todos.length}</Button>
-      </Form.Group>
+      <div className="todos">
+        <ListGroup>
+          {todos.map((todo) => (
+            <Todo
+              todo={todo}
+              handleTodoEdit={handleTodoEdit}
+              handleTodoToggle={handleTodoToggle}
+              handleTodoDelete={handleTodoDelete}
+            />
+          ))}
+        </ListGroup>
+        <Form.Group className="new-todo-form-grp" onSubmit={handleAddNewTodo}>
+          <Form.Control className="input" plaintext value={newTodo} onChange={e => setNewTodo(e.target.value)} />
+          <Button className="btn" variant="success">Add Todo #{todos.length}</Button>
+        </Form.Group>
+      </div>
     </div>
   );
 }
