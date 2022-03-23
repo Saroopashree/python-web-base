@@ -10,8 +10,8 @@ function App() {
   const [newTodo, setNewTodo] = useState("");
 
   const fetchAllTodos = () => {
-    debugger
-    axios.get("server:8000/todo/").then((response) => {
+    axios.get(`/todo/`).then((response) => {
+      console.log(response.data)
       setTodos(response.data);
     }).catch((err) => {
       console.log(err)
@@ -19,7 +19,7 @@ function App() {
   };
 
   const handleAddNewTodo = () => {
-    axios.post("server:8000/todo/", { desc: newTodo }).then((response) => {
+    axios.post(`/todo/`, { desc: newTodo }).then((response) => {
       let _todos = [...todos];
       _todos.push(response.data);
       setTodos(_todos);
@@ -29,7 +29,7 @@ function App() {
 
   const handleTodoEdit = (id, desc, callback) => {
     axios
-      .put(`server:8000/todo/change-desc/${id}`, { desc })
+      .put(`/todo/change-desc/${id}`, { desc })
       .then((response) => {
         let _todos = [...todos];
         _todos = _todos.map((t) => (t.id === id ? response.data : t));
@@ -39,7 +39,7 @@ function App() {
   };
 
   const handleTodoToggle = (id) => {
-    axios.put(`server:8000/todo/toggle-complete/${id}`).then((response) => {
+    axios.put(`/todo/toggle-complete/${id}`).then((response) => {
       let _todos = [...todos];
       _todos = _todos.map((t) => (t.id === id ? response.data : t));
       setTodos(_todos);
@@ -47,7 +47,7 @@ function App() {
   };
 
   const handleTodoDelete = (id) => {
-    axios.delete(`server:8000/todo/${id}`).then(fetchAllTodos);
+    axios.delete(`/todo/${id}`).then(fetchAllTodos);
   };
 
   useEffect(() => {
@@ -70,7 +70,7 @@ function App() {
         </ListGroup>
         <Form.Group className="new-todo-form-grp" onSubmit={handleAddNewTodo}>
           <Form.Control className="input" plaintext value={newTodo} onChange={e => setNewTodo(e.target.value)} />
-          <Button className="btn" variant="success">Add Todo #{todos.length}</Button>
+          <Button className="btn" variant="success" onClick={handleAddNewTodo}>Add Todo #{todos.length}</Button>
         </Form.Group>
       </div>
     </div>

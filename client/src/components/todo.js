@@ -28,17 +28,18 @@ const Todo = (props) => {
             <div className="checkbox-desc-wrapper">
               <input
                 type="checkbox"
+                checked={props.todo.is_completed}
                 onClick={() => props.handleTodoToggle(props.todo.id)}
               />
               <div
                 style={
-                  props.is_completed
+                  props.todo.is_completed
                     ? { textDecoration: "line-through", color: "#AAA" }
                     : {}
                 }
                 onClick={() => setEditMode(!editMode)}
               >
-                {props.desc}
+                {props.todo.desc}
               </div>
             </div>
             <Button variant="danger" onClick={() => props.handleTodoDelete(props.todo.id)}>

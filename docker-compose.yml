@@ -7,30 +7,34 @@ x-common-env-vars: &common-env-vars
 
 services:
   app:
-    image: saroopa/client
+    image: saroopa/pythonwebbase-client
     networks:
       - app-network
     build:
       context: ./client
       dockerfile: ./Dockerfile
+    links:
+      - server
     depends_on:
       - server
     ports:
       - 3000:3000
+
   server:
-    image: saroopa/server
+    image: saroopa/pythonwebbase-server
     networks:
       - app-network
-    environment:
-      <<: *common-env-vars
     build:
       context: ./server
       dockerfile: ./Dockerfile
+    environment:
+      <<: *common-env-vars
     depends_on:
       mysqldb:
         condition: service_healthy
     ports:
       - 8000:8000
+
   mysqldb:
     image: mysql:latest
     platform: linux/x86_64

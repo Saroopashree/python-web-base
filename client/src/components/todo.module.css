@@ -1,11 +1,11 @@
 .todo-item {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 }
 
 .todo-item .checkbox-desc-wrapper {
     width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .checkbox-desc-wrapper input {
