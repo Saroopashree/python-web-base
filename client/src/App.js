@@ -10,12 +10,15 @@ function App() {
   const [newTodo, setNewTodo] = useState("");
 
   const fetchAllTodos = () => {
-    axios.get(`/todo/`).then((response) => {
-      console.log(response.data)
-      setTodos(response.data);
-    }).catch((err) => {
-      console.log(err)
-    });
+    axios
+      .get(`/todo/`)
+      .then((response) => {
+        console.log(response.data);
+        setTodos(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleAddNewTodo = () => {
@@ -56,7 +59,7 @@ function App() {
 
   return (
     <div id="app-start">
-      <h2 id="app-header">Todo App</h2>
+      <h2 id="app-header">Todo Application</h2>
       <div className="todos">
         <ListGroup>
           {todos.map((todo) => (
@@ -69,8 +72,15 @@ function App() {
           ))}
         </ListGroup>
         <Form.Group className="new-todo-form-grp" onSubmit={handleAddNewTodo}>
-          <Form.Control className="input" plaintext value={newTodo} onChange={e => setNewTodo(e.target.value)} />
-          <Button className="btn" variant="success" onClick={handleAddNewTodo}>Add Todo #{todos.length}</Button>
+          <Form.Control
+            className="input"
+            plaintext
+            value={newTodo}
+            onChange={(e) => setNewTodo(e.target.value)}
+          />
+          <Button className="btn" variant="success" onClick={handleAddNewTodo}>
+            Add Todo #{todos.length + 1}
+          </Button>
         </Form.Group>
       </div>
     </div>

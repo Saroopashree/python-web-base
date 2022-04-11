@@ -3,6 +3,10 @@
   margin-bottom: 25px;
 }
 
+#app-start {
+  padding: 3vh;
+}
+
 .todos {
   display: flex;
   flex-direction: column;
@@ -24,4 +28,10 @@
 
 .new-todo-form-grp .btn {
   margin-top: 8px;
+}
+
+.input {
+  width: 300px;
+  margin-top: 30px;
+  padding: 8px;
 }

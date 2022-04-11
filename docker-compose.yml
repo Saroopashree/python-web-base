@@ -12,13 +12,13 @@ services:
       - app-network
     build:
       context: ./client
-      dockerfile: ./Dockerfile
-    links:
-      - server
     depends_on:
       - server
     ports:
       - 3000:3000
+    stdin_open: true
+    volumes:
+      - ./client:/app
 
   server:
     image: saroopa/pythonwebbase-server
@@ -26,7 +26,6 @@ services:
       - app-network
     build:
       context: ./server
-      dockerfile: ./Dockerfile
     environment:
       <<: *common-env-vars
     depends_on:
@@ -34,6 +33,9 @@ services:
         condition: service_healthy
     ports:
       - 8000:8000
+    stdin_open: true
+    volumes:
+      - ./server:/app
 
   mysqldb:
     image: mysql:latest

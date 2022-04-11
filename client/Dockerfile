@@ -11,6 +11,7 @@ COPY package.json /app
 # `npm ci` command will install the dependency graph resolved in package-lock.json
 RUN npm ci
 
-COPY ./ /app
+# Uncomment this and remove the volume definition in docker-compose.yml during production deployment
+# COPY ./ /app
 
-CMD [ "npm", "run", "start" ]
+CMD [ "npm" , "run", "start" ]

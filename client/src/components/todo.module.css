@@ -1,13 +1,22 @@
-.todo-item {
+.todoItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.todo-item .checkbox-desc-wrapper {
+.checkboxDescWrapper {
     width: fit-content;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    margin-right: 12px;
+    align-items: center;
 }
 
-.checkbox-desc-wrapper input {
+.todoDesc {
+    margin-left: 8px;
+}
+
+.input {
     margin-right: 8px;
 }

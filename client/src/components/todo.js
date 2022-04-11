@@ -2,7 +2,7 @@ import { useState } from "react";
 import { PropTypes } from "prop-types";
 import { Button, Form, ListGroup } from "react-bootstrap";
 
-import "./todo.module.css";
+import styles from "./todo.module.css";
 
 const Todo = (props) => {
   const [todoDesc, setTodoDesc] = useState(props.todo.desc);
@@ -20,18 +20,24 @@ const Todo = (props) => {
                 )
               }
             >
-              <Form.Control plaintext value={todoDesc} onChange={setTodoDesc} />
+              <Form.Control
+                className={styles.input}
+                plaintext
+                value={todoDesc}
+                onChange={setTodoDesc}
+              />
             </Form.Group>
           </Form>
         ) : (
-          <div className="todo-item">
-            <div className="checkbox-desc-wrapper">
+          <div className={styles.todoItem}>
+            <div className={styles.checkboxDescWrapper}>
               <input
                 type="checkbox"
                 checked={props.todo.is_completed}
                 onClick={() => props.handleTodoToggle(props.todo.id)}
               />
               <div
+                className={styles.todoDesc}
                 style={
                   props.todo.is_completed
                     ? { textDecoration: "line-through", color: "#AAA" }
@@ -42,7 +48,10 @@ const Todo = (props) => {
                 {props.todo.desc}
               </div>
             </div>
-            <Button variant="danger" onClick={() => props.handleTodoDelete(props.todo.id)}>
+            <Button
+              variant="danger"
+              onClick={() => props.handleTodoDelete(props.todo.id)}
+            >
               X
             </Button>
           </div>
