@@ -18,31 +18,31 @@ class DescPayload(BaseModel):
 router = APIRouter(prefix="/todo")
 
 
-@router.get("/", response_model=list[TodoItem])
-async def fetch_all_todos() -> list[TodoItem]:
-    return store.fetch()
+@router.get("/{uid}", response_model=list[TodoItem])
+async def fetch_all_todos(uid: int) -> list[TodoItem]:
+    return store.fetch(uid)
 
 
-@router.get("/{tid}", response_model=Optional[TodoItem])
-async def fetch_todo_by_id(tid: int) -> Optional[TodoItem]:
-    return store.fetch(tid)
+@router.get("/{uid}/{tid}", response_model=Optional[TodoItem])
+async def fetch_todo_by_id(uid: int, tid: int) -> Optional[TodoItem]:
+    return store.fetch(uid, tid)
 
 
-@router.post("/", response_model=TodoItem)
-async def add_todo(payload: DescPayload) -> TodoItem:
-    return store.add(payload.desc)
+@router.post("/{uid}", response_model=TodoItem)
+async def add_todo(uid: int, payload: DescPayload) -> TodoItem:
+    return store.add(uid, payload.desc)
 
 
-@router.put("/toggle-complete/{tid}", response_model=TodoItem)
-async def toggle_completed(tid: int) -> TodoItem:
-    return store.toggle_completed(tid)
+@router.put("/{uid}/toggle-complete/{tid}", response_model=TodoItem)
+async def toggle_completed(uid: int, tid: int) -> TodoItem:
+    return store.toggle_completed(uid, tid)
 
 
-@router.put("/change-desc/{tid}", response_model=TodoItem)
-async def change_description(tid: int, payload: DescPayload) -> TodoItem:
-    return store.change_desc(tid, payload.desc)
+@router.put("/{uid}/change-desc/{tid}", response_model=TodoItem)
+async def change_description(uid: int, tid: int, payload: DescPayload) -> TodoItem:
+    return store.change_desc(uid, tid, payload.desc)
 
 
-@router.delete("/{tid}", response_model=None)
-async def delete(tid: int) -> None:
-    store.delete(tid)
+@router.delete("/{uid}/{tid}", response_model=None)
+async def delete(uid: int, tid: int) -> None:
+    store.delete(uid, tid)
