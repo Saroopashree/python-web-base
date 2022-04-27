@@ -99,3 +99,12 @@ dmypy.json
 cython_debug/
 
 .DS_Store
+
+
+# Deployemnt related ignores
+k8s/
+kustomization.yaml
+
+# Ignore all files inside terraform/ dir except actual tf scripts
+terraform/*
+!terraform/*.tf
