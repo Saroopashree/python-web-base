@@ -1,106 +1,132 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+server/__pycache__/
+server/*.py[cod]
+server/*$py.class
 
 # C extensions
-*.so
+server/*.so
 
 # Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+server/.Python
+server/build/
+server/develop-eggs/
+server/dist/
+server/downloads/
+server/eggs/
+server/.eggs/
+server/lib/
+server/lib64/
+server/parts/
+server/sdist/
+server/var/
+server/wheels/
+server/share/python-wheels/
+server/*.egg-info/
+server/.installed.cfg
+server/*.egg
+server/MANIFEST
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+server/*.manifest
+server/*.spec
 
 # Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+server/pip-log.txt
+server/pip-delete-this-directory.txt
 
 # Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-cover/
+server/htmlcov/
+server/.tox/
+server/.nox/
+server/.coverage
+server/.coverage.*
+server/.cache
+server/nosetests.xml
+server/coverage.xml
+server/*.cover
+server/*.py,cover
+server/.hypothesis/
+server/.pytest_cache/
+server/cover/
 
 # Translations
-*.mo
-*.pot
+server/*.mo
+server/*.pot
 
 # Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
+server/*.log
+server/local_settings.py
+server/db.sqlite3
+server/db.sqlite3-journal
 
 # Flask stuff:
-instance/
-.webassets-cache
+server/instance/
+server/.webassets-cache
 
 # Scrapy stuff:
-.scrapy
+server/.scrapy
 
 # Jupyter Notebook
-.ipynb_checkpoints
+server/.ipynb_checkpoints
 
 # IPython
-profile_default/
-ipython_config.py
+server/profile_default/
+server/ipython_config.py
 
 # Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+server/.env
+server/.venv
+server/env/
+server/venv/
+server/ENV/
+server/env.bak/
+server/venv.bak/
 
 # mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
+server/.mypy_cache/
+server/.dmypy.json
+server/dmypy.json
 
 # Pyre type checker
-.pyre/
+server/.pyre/
 
 # pytype static type analyzer
-.pytype/
+server/.pytype/
 
 # Cython debug symbols
-cython_debug/
+server/cython_debug/
 
 .DS_Store
 
+# ----------------------------------------------------------------------------------- #
+# Node FS Ignores
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# dependencies
+client/node_modules
+client/.pnp
+client/.pnp.js
+
+# testing
+client/coverage
+
+# production
+client/build
+
+# misc
+client/.DS_Store
+.client/env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
+
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+
+# ----------------------------------------------------------------------------------- #
 # Deployemnt related ignores
 k8s/
 kustomization.yaml
@@ -108,3 +134,4 @@ kustomization.yaml
 # Ignore all files inside terraform/ dir except actual tf scripts
 terraform/*
 !terraform/*.tf
+server/.DS_Store
