@@ -1,0 +1,63 @@
+.todoItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.checkboxDescWrapper {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-right: 12px;
+  align-items: center;
+}
+
+.todoDesc {
+  margin-left: 8px;
+}
+
+.todoEditInput {
+  margin-right: 8px;
+  border: 1.5px solid #7c7c7c;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.todoEditButton {
+  margin: 8px;
+}
+
+.appHeader {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.appStart {
+  padding: 3vh;
+}
+
+.listGroup {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  margin: auto;
+}
+
+.newTodoFormGrp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.addTodoBtn {
+  margin-top: 8px;
+}
+
+.addTodoInput {
+  width: 600px;
+  margin-top: 30px;
+  padding: 8px;
+  border: 1.5px solid #7c7c7c;
+  border-radius: 4px;
+}

@@ -1,90 +1,39 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import "./App.css";
-import Todo from "./components/todo";
+import Todo from "./components/todoScreen/todo";
 import { Button, Form, ListGroup } from "react-bootstrap";
+import AuthScreen from "./components/authScreen";
+import TodoScreen from "./components/todoScreen";
 
 function App() {
-  const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState("");
-
-  const fetchAllTodos = () => {
-    axios
-      .get(`/todo/`)
-      .then((response) => {
-        console.log(response.data);
-        setTodos(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleAddNewTodo = () => {
-    axios.post(`/todo/`, { desc: newTodo }).then((response) => {
-      let _todos = [...todos];
-      _todos.push(response.data);
-      setTodos(_todos);
-      setNewTodo("");
-    });
-  };
-
-  const handleTodoEdit = (id, desc, callback) => {
-    axios
-      .put(`/todo/change-desc/${id}`, { desc })
-      .then((response) => {
-        let _todos = [...todos];
-        _todos = _todos.map((t) => (t.id === id ? response.data : t));
-        setTodos(_todos);
-      })
-      .finally(callback);
-  };
-
-  const handleTodoToggle = (id) => {
-    axios.put(`/todo/toggle-complete/${id}`).then((response) => {
-      let _todos = [...todos];
-      _todos = _todos.map((t) => (t.id === id ? response.data : t));
-      setTodos(_todos);
-    });
-  };
-
-  const handleTodoDelete = (id) => {
-    axios.delete(`/todo/${id}`).then(fetchAllTodos);
-  };
-
-  useEffect(() => {
-    fetchAllTodos();
-  }, []);
+  const [userId, setUserId] = useState(null);
 
   return (
     <div id="app-start">
-      <h2 id="app-header">Todo Application</h2>
-      <div className="todos">
-        <ListGroup>
-          {todos.map((todo) => (
-            <Todo
-              todo={todo}
-              handleTodoEdit={handleTodoEdit}
-              handleTodoToggle={handleTodoToggle}
-              handleTodoDelete={handleTodoDelete}
-            />
-          ))}
-        </ListGroup>
-        <Form.Group className="new-todo-form-grp" onSubmit={handleAddNewTodo}>
-          <Form.Control
-            className="input"
-            plaintext
-            value={newTodo}
-            onChange={(e) => setNewTodo(e.target.value)}
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/signin"
+            element={<AuthScreen setUserId={setUserId} />}
           />
-          <Button className="btn" variant="success" onClick={handleAddNewTodo}>
-            Add Todo #{todos.length + 1}
-          </Button>
-        </Form.Group>
-      </div>
+          <Route path="/app" element={<TodoScreen userId={userId} />} />
+          <Route path="/" element={<Redirect to="/signin" />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
+
+const Redirect = ({ to }) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate(to, { replace: true });
+  }, []);
+
+  return null;
+};
 
 export default App;

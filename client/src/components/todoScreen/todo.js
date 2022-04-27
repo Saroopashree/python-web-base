@@ -21,11 +21,31 @@ const Todo = (props) => {
               }
             >
               <Form.Control
-                className={styles.input}
+                className={styles.todoEditInput}
                 plaintext
                 value={todoDesc}
-                onChange={setTodoDesc}
+                onChange={(e) => setTodoDesc(e.target.value)}
               />
+              <Button
+                className={styles.todoEditButton}
+                variant="success"
+                onClick={() =>
+                  props.handleTodoEdit(props.todo.id, todoDesc, () =>
+                    setEditMode(false)
+                  )
+                }
+              >
+                Save
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  setTodoDesc(props.todo.desc);
+                  setEditMode(false);
+                }}
+              >
+                X
+              </Button>
             </Form.Group>
           </Form>
         ) : (

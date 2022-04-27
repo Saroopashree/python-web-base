@@ -17,6 +17,8 @@ services:
       - server
     ports:
       - 3000:3000
+    labels:
+      - kompose.service.type=loadbalancer
     stdin_open: true
     volumes:
       - ./client:/app
@@ -34,8 +36,6 @@ services:
         condition: service_healthy
     ports:
       - 8000:8000
-    labels:
-      - kompose.service.type=loadbalancer
     stdin_open: true
     volumes:
       - ./server:/app

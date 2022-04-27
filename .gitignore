@@ -98,7 +98,7 @@ server/.pytype/
 # Cython debug symbols
 server/cython_debug/
 
-.DS_Store
+server/.DS_Store
 
 # ----------------------------------------------------------------------------------- #
 # Node FS Ignores
