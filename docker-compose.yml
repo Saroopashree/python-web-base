@@ -8,6 +8,7 @@ x-common-env-vars: &common-env-vars
 services:
   app:
     image: saroopa/pythonwebbase-client
+    restart: on-failure
     networks:
       - app-network
     build:
@@ -33,16 +34,15 @@ services:
         condition: service_healthy
     ports:
       - 8000:8000
+    labels:
+      - kompose.service.type=loadbalancer
     stdin_open: true
     volumes:
       - ./server:/app
 
   mysqldb:
-    image: mysql:latest
-    platform: linux/x86_64
-    restart: always
-    volumes:
-      - db-data:/var/lib/mysql
+    image: mysql/mysql-server:latest
+    restart: on-failure
     networks:
       - app-network
     environment:
@@ -56,9 +56,6 @@ services:
       timeout: 5s
       retries: 10
       start_period: 5s
-
-volumes:
-  db-data:  
 
 networks:
   app-network:

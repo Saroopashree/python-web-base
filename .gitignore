@@ -1,127 +1,137 @@
 # Byte-compiled / optimized / DLL files
-./server/__pycache__/
-./server/*.py[cod]
-./server/*$py.class
+server/__pycache__/
+server/*.py[cod]
+server/*$py.class
 
 # C extensions
-./server/*.so
+server/*.so
 
 # Distribution / packaging
-./server/.Python
-./server/build/
-./server/develop-eggs/
-./server/dist/
-./server/downloads/
-./server/eggs/
-./server/.eggs/
-./server/lib/
-./server/lib64/
-./server/parts/
-./server/sdist/
-./server/var/
-./server/wheels/
-./server/share/python-wheels/
-./server/*.egg-info/
-./server/.installed.cfg
-./server/*.egg
-./server/MANIFEST
+server/.Python
+server/build/
+server/develop-eggs/
+server/dist/
+server/downloads/
+server/eggs/
+server/.eggs/
+server/lib/
+server/lib64/
+server/parts/
+server/sdist/
+server/var/
+server/wheels/
+server/share/python-wheels/
+server/*.egg-info/
+server/.installed.cfg
+server/*.egg
+server/MANIFEST
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
-./server/*.manifest
-./server/*.spec
+server/*.manifest
+server/*.spec
 
 # Installer logs
-./server/pip-log.txt
-./server/pip-delete-this-directory.txt
+server/pip-log.txt
+server/pip-delete-this-directory.txt
 
 # Unit test / coverage reports
-./server/htmlcov/
-./server/.tox/
-./server/.nox/
-./server/.coverage
-./server/.coverage.*
-./server/.cache
-./server/nosetests.xml
-./server/coverage.xml
-./server/*.cover
-./server/*.py,cover
-./server/.hypothesis/
-./server/.pytest_cache/
-./server/cover/
+server/htmlcov/
+server/.tox/
+server/.nox/
+server/.coverage
+server/.coverage.*
+server/.cache
+server/nosetests.xml
+server/coverage.xml
+server/*.cover
+server/*.py,cover
+server/.hypothesis/
+server/.pytest_cache/
+server/cover/
 
 # Translations
-./server/*.mo
-./server/*.pot
+server/*.mo
+server/*.pot
 
 # Django stuff:
-./server/*.log
-./server/local_settings.py
-./server/db.sqlite3
-./server/db.sqlite3-journal
+server/*.log
+server/local_settings.py
+server/db.sqlite3
+server/db.sqlite3-journal
 
 # Flask stuff:
-./server/instance/
-./server/.webassets-cache
+server/instance/
+server/.webassets-cache
 
 # Scrapy stuff:
-./server/.scrapy
+server/.scrapy
 
 # Jupyter Notebook
-./server/.ipynb_checkpoints
+server/.ipynb_checkpoints
 
 # IPython
-./server/profile_default/
-./server/ipython_config.py
+server/profile_default/
+server/ipython_config.py
 
 # Environments
-./server/.env
-./server/.venv
-./server/env/
-./server/venv/
-./server/ENV/
-./server/env.bak/
-./server/venv.bak/
+server/.env
+server/.venv
+server/env/
+server/venv/
+server/ENV/
+server/env.bak/
+server/venv.bak/
 
 # mypy
-./server/.mypy_cache/
-./server/.dmypy.json
-./server/dmypy.json
+server/.mypy_cache/
+server/.dmypy.json
+server/dmypy.json
 
 # Pyre type checker
-./server/.pyre/
+server/.pyre/
 
 # pytype static type analyzer
-./server/.pytype/
+server/.pytype/
 
 # Cython debug symbols
-./server/cython_debug/
+server/cython_debug/
 
-./server/.DS_Store
+.DS_Store
 
 # ----------------------------------------------------------------------------------- #
 # Node FS Ignores
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-./client/node_modules
-./client/.pnp
-./client/.pnp.js
+client/node_modules
+client/.pnp
+client/.pnp.js
 
 # testing
-./client/coverage
+client/coverage
 
 # production
-./client/build
+client/build
 
 # misc
-./client/.DS_Store
-../client/env.local
-./client/.env.development.local
-./client/.env.test.local
-./client/.env.production.local
+client/.DS_Store
+.client/env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
 
-./client/npm-debug.log*
-./client/yarn-debug.log*
-./client/yarn-error.log*
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+
+# ----------------------------------------------------------------------------------- #
+# Deployemnt related ignores
+k8s/
+kustomization.yaml
+
+# Ignore all files inside terraform/ dir except actual tf scripts
+terraform/*
+!terraform/*.tf
+server/.DS_Store
