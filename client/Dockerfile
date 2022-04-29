@@ -12,6 +12,6 @@ COPY package.json /app
 RUN npm ci
 
 # Uncomment this and remove the volume definition in docker-compose.yml during production deployment
-# COPY ./ /app
+COPY . /app
 
 CMD [ "npm" , "run", "start" ]

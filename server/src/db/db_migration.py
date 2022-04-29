@@ -20,7 +20,7 @@ class DBMigrationOrchestrator:
         migration_sql_dir = migration_sql_dir or "sql"
         absolute_uri = os.path.join(ROOT_DIR, migration_sql_dir)
 
-        for file in Path(absolute_uri).glob("*.sql"):
+        for file in sorted(Path(absolute_uri).glob("*.sql")):
             self.unit_migration(file.name, migration_sql_dir)
 
         print("[DB_MIGRATION]: Database migration finished.")

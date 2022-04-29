@@ -19,12 +19,10 @@ services:
       - 3000:3000
     labels:
       - kompose.service.type=loadbalancer
-    stdin_open: true
-    volumes:
-      - ./client:/app
 
   server:
     image: saroopa/pythonwebbase-server
+    restart: on-failure
     networks:
       - app-network
     build:
@@ -32,13 +30,9 @@ services:
     environment:
       <<: *common-env-vars
     depends_on:
-      mysqldb:
-        condition: service_healthy
+      - mysqldb
     ports:
       - 8000:8000
-    stdin_open: true
-    volumes:
-      - ./server:/app
 
   mysqldb:
     image: mysql/mysql-server:latest
@@ -50,12 +44,6 @@ services:
       MYSQL_ROOT_PASSWORD: <provide-root-password-here>
     ports:
       - 3306:3306
-    healthcheck:
-      test: "mysqladmin -u root -p$$MYSQL_ROOT_PASSWORD ping --protocol=tcp"
-      interval: 5s
-      timeout: 5s
-      retries: 10
-      start_period: 5s
 
 networks:
   app-network:

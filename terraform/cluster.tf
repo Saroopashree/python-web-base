@@ -1,5 +1,5 @@
 locals {
-  cluster_name = "todo-microservice"
+  cluster_name = "todo-application"
 }
 
 module "vpc" {
@@ -10,7 +10,7 @@ module "vpc" {
   aws_azs    = "us-east-1a, us-east-1b"
 
   global_tags = {
-    "purpose" = "eks"
+    "purpose"       = "eks"
     "resource_name" = "${local.cluster_name}"
   }
 }
@@ -21,10 +21,9 @@ module "eks" {
 
   cluster_name = local.cluster_name
 
-  cluster_endpoint_private_access = true
-  cluster_endpoint_public_access  = true
+  cluster_endpoint_public_access = true
 
-  vpc_id = module.vpc.aws_vpc_id
+  vpc_id     = module.vpc.aws_vpc_id
   subnet_ids = module.vpc.aws_subnet_private_prod_ids
 
   eks_managed_node_groups = {

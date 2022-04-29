@@ -10,7 +10,7 @@ if [ -z "$HOST" ] || [[ ! "$HOST" =~ ^(local-k8s|cloud-k8s)$ ]]; then
   exit 1
 fi
 
-if [ -z "$ACTION" ] || [[ ! "$ACTION" =~ ^(up|down|push-pods)$ ]]; then
+if [ -z "$ACTION" ] || [[ ! "$ACTION" =~ ^(up|down)$ ]]; then
   echo "Invalid ACTION specified"
   exit 1
 fi
@@ -45,7 +45,7 @@ if [[ "$HOST" == cloud-k8s ]] && [[ "$ACTION" == up ]]; then
   terraform apply -auto-approve
 
   # Update the Kube Config to change the context to the deployed Cluster in cloud
-  update_kubeconfig="aws eks --region us-east-1 update-kubeconfig --name todo-microservice"
+  update_kubeconfig="aws eks --region us-east-1 update-kubeconfig --name todo-application"
   if [ -z "$PROFILE" ]; then
     echo "Using Default AWS profile"
   else 
