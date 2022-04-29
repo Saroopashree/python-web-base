@@ -6,6 +6,7 @@ from starlette.middleware.cors import CORSMiddleware
 from src.containers import ApplicationContainer
 from src.exception import AppException, router_exception_handler
 from src.todo.router import router as todo_router
+from src.users.router import router as user_router
 
 app_container = ApplicationContainer()
 
@@ -48,4 +49,5 @@ app = FastAPI(
 )
 
 
-app.include_router(todo_router)
+app.include_router(todo_router, prefix="/api", tags=["Todo"])
+app.include_router(user_router, prefix="/api", tags=["Auth"])

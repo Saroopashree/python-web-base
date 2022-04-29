@@ -20,7 +20,7 @@ class DBMigrationOrchestrator:
         migration_sql_dir = migration_sql_dir or "sql"
         absolute_uri = os.path.join(ROOT_DIR, migration_sql_dir)
 
-        for file in Path(absolute_uri).glob("*.sql"):
+        for file in sorted(Path(absolute_uri).glob("*.sql")):
             self.unit_migration(file.name, migration_sql_dir)
 
         print("[DB_MIGRATION]: Database migration finished.")
@@ -36,14 +36,10 @@ class DBMigrationOrchestrator:
             if result:
                 return
 
-            with open(
-                os.path.join(ROOT_DIR, migration_sql_dir, file_name), "r"
-            ) as reader:
+            with open(os.path.join(ROOT_DIR, migration_sql_dir, file_name), "r") as reader:
                 content = reader.read()
 
-            print(
-                f"[DB_MIGRATION]: Performing migration for {version=} with {migration_name=}"
-            )
+            print(f"[DB_MIGRATION]: Performing migration for {version=} with {migration_name=}")
             cursor.execute(content)
             cursor.execute(
                 f"INSERT INTO `db_migration` (`version`, `name`) VALUES (%s, %s)",

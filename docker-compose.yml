@@ -1,46 +1,49 @@
 version: '3.8'
 
+x-common-env-vars: &common-env-vars
+  MYSQL_DATABASE: dev
+  MYSQL_USER: admin
+  MYSQL_PASSWORD: <provide-password-here>
+
 services:
   app:
-    image: pythonwebbase
+    image: saroopa/pythonwebbase-client
+    restart: on-failure
     networks:
       - app-network
-    environment:
-      - MYSQL_DATABASE=dev
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=<provide-password-here>
     build:
-      context: .
-      dockerfile: ./Dockerfile
+      context: ./client
     depends_on:
-      mysqldb:
-        condition: service_healthy
+      - server
+    ports:
+      - 3000:3000
+    labels:
+      - kompose.service.type=loadbalancer
+
+  server:
+    image: saroopa/pythonwebbase-server
+    restart: on-failure
+    networks:
+      - app-network
+    build:
+      context: ./server
+    environment:
+      <<: *common-env-vars
+    depends_on:
+      - mysqldb
     ports:
       - 8000:8000
+
   mysqldb:
-    image: mysql:latest
-    platform: linux/x86_64
-    restart: always
-    volumes:
-      - db-data:/var/lib/mysql
+    image: mysql/mysql-server:latest
+    restart: on-failure
     networks:
       - app-network
     environment:
-      - MYSQL_DATABASE=dev
-      - MYSQL_USER=admin
-      - MYSQL_ROOT_PASSWORD=<provide-root-password-here>
-      - MYSQL_PASSWORD=<provide-password-here>
+      <<: *common-env-vars
+      MYSQL_ROOT_PASSWORD: <provide-root-password-here>
     ports:
       - 3306:3306
-    healthcheck:
-      test: "mysqladmin -u root -p$$MYSQL_ROOT_PASSWORD ping --protocol=tcp"
-      interval: 5s
-      timeout: 5s
-      retries: 10
-      start_period: 5s
-
-volumes:
-  db-data:  
 
 networks:
   app-network:
